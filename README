@@ -1,3 +1,26 @@
 == Overview ==
 
-An improved webUI utilizing mysql and OpenStreetMap for http://bk.gnarf.org/creativity/bigbrothergps/
+BigBrotherGPS ( http://bk.gnarf.org/creativity/bigbrothergps/ ) is an app for regularily reporting location to a server.
+
+== BigBrotherWebUI (this project ) == 
+... is serverside code for the app. An improved receiver using MySQL, and a webUI with OpenStreetMap.
+
+This allows for:
+* open source,
+* self hosted,
+* non-google,
+* private,
+ location reporting/sharing.
+
+== Uses ==
+* Outdated android phones can be put to use again.
+* One can track cars, boats, motorbikes, caravans and other large items with a powersource.
+* One can track people.
+
+== Limitations ==
+* One needs a SIM-card for data traffic (or rely on accessable, wifi networks).
+* The battery of the phone will limit your uptime if you don't have a powersource.
+
+== Other possibilities ==
+* A client can easily be written for linux machines (i.e. raspberry pi).
+* Protocol is open and very basic, so people with skills can implement apps for other phones.

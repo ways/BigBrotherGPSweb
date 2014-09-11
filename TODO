@@ -1,9 +1,26 @@
-== Must have ==
-* Show one of each device on default map. Mark outdated ones.
+== TODOs ==
 
-== Should have ==
+
+=== Must have ===
+* Show one of each device on default map. Mark outdated ones.
+* Show clickable list of devices, and when they last reported.
+* SQL creation files in git.
+* Show tags on map markers.
+
+=== Should have ===
 * Authentication for map/list.
 * Store battery, charging, speed, etc.
 
-== Nice to have ==
+=== Nice to have ===
 * Authentication for reporting (based on secret).
+* Screenshot on github.
+
+
+== Features wanted in the App ==
+
+=== Must have ===
+* SSL support.
+
+=== Should have ===
+
+=== Nice to have ===

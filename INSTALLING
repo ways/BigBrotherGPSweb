@@ -1,0 +1,6 @@
+== Server requirements ==
+* Apache or other webserver
+* PHP
+* MySQL
+* A static IP
+

@@ -2,6 +2,7 @@
 
   require_once ('config.php');
   require_once ('database.php');
+  require_once ('ui.php');
 
   $secret = '';
 
@@ -36,6 +37,7 @@
   include ('html_header.html');
 
   $requests = list_requests ($secret, $request_count);
+  $devices = list_secrets ();
 
   $php_array = get_coordinates ($requests);
 
@@ -87,6 +89,7 @@
 <?php
   #if ($verbose)
     print_r ($requests);
+    show_devices ($devices);
 ?>
 
 </pre>

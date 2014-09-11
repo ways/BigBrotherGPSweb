@@ -1,7 +1,7 @@
 <?php
 
   function clean_input ($in) {
-    return stripslashes ($in);
+    return stripslashes ( striphtml ($in));
   }
 
   function get_secret ($secret) {
@@ -12,7 +12,6 @@
        FROM secrets
        WHERE sname LIKE "'.$secret.'"
        order by sid ASC
-       LIMIT 10
       ';
 
     if($verbose)
@@ -35,6 +34,32 @@
     $result = mysqli_query( $mysqli, $query );
 
     return get_secret($secret);
+  }
+
+  function list_secrets ($secret = '') {
+    global $mysqli, $verbose;
+    $out = array();
+
+    $query =
+      'SELECT *
+       FROM secrets
+      ';
+
+    if ($secret)
+      $query .= '
+       WHERE sname LIKE "'.$secret.'"
+      ';
+
+    $query .= '
+       order by sname
+    ';
+
+    $result = mysqli_query( $mysqli, $query );
+    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        $out[ $row['sid'] ] = $row;
+    }
+
+    return $out;
   }
 
   function add_request (
@@ -63,19 +88,20 @@
     return true;
   }
 
-  function list_requests ($secret = '', $request_count = 0) {
+  function list_requests ($secret = '', $requests_per_secret = 1) {
     global $mysqli, $verbose;
     $out = array();
 
     if ($verbose)
       print 'list_requests';
 
-    $query = 
-      "
-      select * 
-      from requests 
-      left join secrets 
-      on requests.sid = secrets.sid 
+    $query = "
+      SELECT s.sid, s.sname, (
+        SELECT max( r.rdate )
+        FROM requests AS r
+        WHERE r.sid = s.sid
+      ) AS rdate
+      FROM secrets AS s
       ";
 
     if ($secret)
@@ -83,12 +109,18 @@
         WHERE secrets.sname LIKE $secret
       ";
 
-    $query .= " ORDER BY requests.rdate DESC";
+    $query .= "
+      GROUP BY s.sid
+      ORDER BY rdate DESC
+    ";
 
-    if ($request_count)
-      $query .= "
-        LIMIT ". $request_count ."
-      ";
+#    if ($request_count)
+#      $query .= "
+#        LIMIT ". $request_count ."
+#      ";
+
+    if ($verbose)
+      print $query;
 
     $result = mysqli_query( $mysqli, $query ) or die('Err!');
     $i = 0;

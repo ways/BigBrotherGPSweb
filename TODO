@@ -1,0 +1,9 @@
+== Must have ==
+* Show one of each device on default map. Mark outdated ones.
+
+== Should have ==
+* Authentication for map/list.
+* Store battery, charging, speed, etc.
+
+== Nice to have ==
+* Authentication for reporting (based on secret).

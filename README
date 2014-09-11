@@ -1,6 +1,6 @@
 == Overview ==
 
-BigBrotherGPS ( http://bk.gnarf.org/creativity/bigbrothergps/ ) is an app for regularily reporting location to a server.
+BigBrotherGPS ( http://bk.gnarf.org/creativity/bigbrothergps/ ) is an Open Source app for regularily reporting location to a server.
 
 == BigBrotherWebUI (this project ) == 
 ... is serverside code for the app. An improved receiver using MySQL, and a webUI with OpenStreetMap.
@@ -27,4 +27,4 @@ This allows for:
 
 == Current status ==
 
-![Screenshot of alfa](https://github.com/ways/BigBrotherGPSweb/blob/master/screenshot.png?raw=true "Screenshot of alfa")
+![Screenshot of alfa](https://github.com/ways/BigBrotherGPSweb/blob/master/screenshot.png?raw=true)

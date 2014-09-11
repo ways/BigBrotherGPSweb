@@ -24,3 +24,7 @@ This allows for:
 == Other possibilities ==
 * A client can easily be written for linux machines (i.e. raspberry pi).
 * Protocol is open and very basic, so people with skills can implement apps for other phones.
+
+== Current status ==
+
+![Screenshot of alfa](/ways/BigBrotherGPSweb/blob/master/screenshot.png?raw=true "Screenshot of alfa")

@@ -5,7 +5,7 @@
 * Show one of each device on default map. Mark outdated ones.
 * Show clickable list of devices, and when they last reported.
 * SQL creation files in git.
-* Show tags on map markers.
+* Show tags on map markers (name, date).
 
 === Should have ===
 * Authentication for map/list.
@@ -14,7 +14,9 @@
 === Nice to have ===
 * Authentication for reporting (based on secret).
 * Screenshot on github.
-
+* Avatars / logos (car/boat/person)
+* Color based on battery
+* Show speed
 
 == Features wanted in the App ==
 

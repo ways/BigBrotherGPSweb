@@ -87,8 +87,7 @@
   </script>
 
 <?php
-  #if ($verbose)
-    print_r ($requests);
+    show_requests ($requests);
     show_devices ($devices);
 ?>
 

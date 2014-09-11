@@ -96,12 +96,10 @@
       print 'list_requests';
 
     $query = "
-      SELECT s.sid, s.sname, (
-        SELECT max( r.rdate )
-        FROM requests AS r
-        WHERE r.sid = s.sid
-      ) AS rdate
+      SELECT max( r.rdate ) as rdate, s . * , r . *
       FROM secrets AS s
+      LEFT JOIN requests AS r
+        ON s.sid = r.sid
       ";
 
     if ($secret)
@@ -113,11 +111,6 @@
       GROUP BY s.sid
       ORDER BY rdate DESC
     ";
-
-#    if ($request_count)
-#      $query .= "
-#        LIMIT ". $request_count ."
-#      ";
 
     if ($verbose)
       print $query;

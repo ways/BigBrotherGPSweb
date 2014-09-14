@@ -17,9 +17,7 @@
     print '</ul>';
   }
 
-  function show_requests ($requests) {
-    #print_r($requests);
-
+  function show_requests ($requests, $sid ='') {
     print '<h3>Lates requests</h3> <ul id="requests">';
 
     foreach ($requests as $key => $d) {
@@ -61,7 +59,6 @@
   }
 
   function show_map ($dev, $req) {
-    print 'Map';
     return show_osm($dev, $req);
   }
 

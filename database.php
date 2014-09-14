@@ -113,21 +113,11 @@
           ORDER BY rid DESC
           LIMIT 1
         )
+      ORDER BY rdate DESC
       ";
 
     if ($sid)
-      $query .= "
-        WHERE s.sid = $sid
-      ";
-
-    if ($sname)
-      $query .= "
-        WHERE s.sname LIKE $sname
-      ";
-
-    $query .= "
-      ORDER BY rdate DESC
-    ";
+      return list_latest_requests ($sid, $count = 50);
 
     if ($verbose)
       print $query;
@@ -142,7 +132,7 @@
     return $out;
   }
 
-  function list_latest_requests ($secretid = '', $count = 10) {
+  function list_latest_requests ($sid = '', $count = 10) {
     global $mysqli, $verbose;
     $out = array();
 
@@ -156,9 +146,9 @@
       ON r.sid = s.sid
       ";
 
-    if ($secretid)
+    if ($sid)
       $query .= "
-        WHERE r.sid == $secretid
+        WHERE r.sid = $sid
       ";
 
     $query .= "

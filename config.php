@@ -8,7 +8,7 @@
 
   # development
   $verbose  = false;
-#  $verbose  = true;
+  #$verbose  = true;
   $testdata = false;
   $request_count = 3;
 

@@ -32,8 +32,8 @@
 
   # If not a request from app, go on:
 
-  if ( isset ($_GET['secret']))
-    $secret = clean_input($_GET['secret']);
+  if ( isset ($_GET['sid']))
+    $sid = clean_input($_GET['sid']);
 
   if ($verbose) {
     print 'Post:<br/>';
@@ -42,7 +42,7 @@
 
   include ('html_header.html');
 
-  $requests = list_requests ($secret, $request_count);
+  $requests = list_requests ($sid);
   $devices = list_secrets ();
 
   show_map ($devices, $requests);

@@ -62,6 +62,52 @@
 
   function show_map ($dev, $req) {
     print 'Map';
+    return show_osm($dev, $req);
+  }
+
+  function show_osm ($devices, $requests) {
+    $php_array = get_coordinates ($requests);
+
+    print '
+   <div id="map" style="width:400px;height:400px;"></div>
+
+<script src="http://openlayers.org/api/OpenLayers.js"></script>
+<script>
+  map = new OpenLayers.Map("map");
+  map.addLayer(new OpenLayers.Layer.OSM());
+  var lat            = '. $php_array[0][0] .';
+  var lon            = '. $php_array[0][1] .';
+  var zoom           = 18;
+  var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+  var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+  var markers = new OpenLayers.Layer.Markers( "Markers" );
+  map.addLayer(markers);
+  var position; ';
+
+  foreach ($php_array as $pos) {
+    print "
+      position = new OpenLayers.LonLat(".$pos[1].", ".$pos[0].").transform( fromProjection, toProjection);
+      markers.addMarker(new OpenLayers.Marker(position));
+      ";
+  }
+
+  print '
+    // create layer switcher widget in top right corner of map.
+    var layer_switcher= new OpenLayers.Control.LayerSwitcher({});
+    map.addControl(layer_switcher);
+    //Set start centrepoint and zoom    
+    var lonLat = new OpenLayers.LonLat( lon,lat )
+          .transform(
+            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+            map.getProjectionObject() // to Spherical Mercator Projection
+          );
+    var zoom=15;
+    map.setCenter (lonLat, zoom);  
+
+  </script>
+
+';
+
   }
 
 ?>

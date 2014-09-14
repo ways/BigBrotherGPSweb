@@ -95,7 +95,7 @@
     return true;
   }
 
-  function list_requests ($secret = '') {
+  function list_requests ($sid = '', $sname = '') {
     global $mysqli, $verbose;
     $out = array();
 
@@ -103,19 +103,29 @@
       print 'list_requests';
 
     $query = "
-      SELECT max( r.rdate ) as rdate, s . * , r . *
-      FROM secrets AS s
-      LEFT JOIN requests AS r
-        ON s.sid = r.sid
+      SELECT s . * , r . *
+      FROM secrets s
+      INNER JOIN requests r 
+        ON r.rid = (
+          SELECT rid
+          FROM requests
+          WHERE sid = s.sid
+          ORDER BY rid DESC
+          LIMIT 1
+        )
       ";
 
-    if ($secret)
+    if ($sid)
       $query .= "
-        WHERE secrets.sname LIKE $secret
+        WHERE s.sid = $sid
+      ";
+
+    if ($sname)
+      $query .= "
+        WHERE s.sname LIKE $sname
       ";
 
     $query .= "
-      GROUP BY s.sid
       ORDER BY rdate DESC
     ";
 

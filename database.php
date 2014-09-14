@@ -1,16 +1,16 @@
 <?php
 
   function clean_input ($in) {
-    return stripslashes ( striphtml ($in));
+    return stripslashes ( $in );
   }
 
-  function get_secret ($secret) {
+  function get_secret ($sname) {
     global $mysqli, $verbose;
 
     $query = 
       'SELECT * 
        FROM secrets
-       WHERE sname LIKE "'.$secret.'"
+       WHERE sname LIKE "'.$sname.'"
        order by sid ASC
       ';
 
@@ -29,14 +29,14 @@
 
     $query =
       'INSERT INTO secrets (sname)
-       VALUES ("'.$secret.'")
+       VALUES ("'.$sname.'")
       ';
     $result = mysqli_query( $mysqli, $query );
 
-    return get_secret($secret);
+    return get_secret($sname);
   }
 
-  function list_secrets ($secret = '') {
+  function list_secrets ($sid = '', $sname = '') {
     global $mysqli, $verbose;
     $out = array();
 
@@ -45,9 +45,13 @@
        FROM secrets
       ';
 
-    if ($secret)
+    if ($sname)
       $query .= '
-       WHERE sname LIKE "'.$secret.'"
+        WHERE sname LIKE "'.$sname.'"
+      ';
+    else if ($sid)
+      $query .= '
+       WHERE sid = "'.$sid.'"
       ';
 
     $query .= '
@@ -56,7 +60,10 @@
 
     $result = mysqli_query( $mysqli, $query );
     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-        $out[ $row['sid'] ] = $row;
+      $out[ $row['sid'] ] = $row;
+
+      if (1 > strlen($row['sname']))
+        $out [ $row['sid'] ]['sname'] = '(No name)';
     }
 
     return $out;
@@ -88,7 +95,7 @@
     return true;
   }
 
-  function list_requests ($secret = '', $requests_per_secret = 1) {
+  function list_requests ($secret = '') {
     global $mysqli, $verbose;
     $out = array();
 
@@ -120,6 +127,44 @@
     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
       $out[$i] = $row;
       $i++;
+    }
+
+    return $out;
+  }
+
+  function list_latest_requests ($secretid = '', $count = 10) {
+    global $mysqli, $verbose;
+    $out = array();
+
+    if ($verbose)
+      print 'list_latest_requests';
+
+    $query = "
+      SELECT r.*, s.sname
+      FROM requests AS r
+      LEFT JOIN secrets AS s
+      ON r.sid = s.sid
+      ";
+
+    if ($secretid)
+      $query .= "
+        WHERE r.sid == $secretid
+      ";
+
+    $query .= "
+      ORDER BY rdate DESC
+      LIMIT $count
+    ";
+
+    if ($verbose)
+      print $query;
+
+    $result = mysqli_query( $mysqli, $query ) or die('Err!');
+    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+      $out[ $row['rid'] ] = $row;
+
+      if (1 > strlen($row['sname']))
+        $out [ $row['rid'] ]['sname'] = '(No name)';
     }
 
     return $out;

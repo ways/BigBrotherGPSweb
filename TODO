@@ -24,5 +24,8 @@
 * SSL support.
 
 === Should have ===
+* Option to report more often if in motion.
 
 === Nice to have ===
+* Read return codes after post. I.e. "You've been stolen. Report more often."
+* Set avatar?

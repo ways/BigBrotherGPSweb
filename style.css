@@ -1,4 +1,13 @@
-#devices {
-  border: 2px solid;
-  border-radius: 25px;
+
+body {
+  font-family: sans-serif;
 }
+
+#devices {
+  border-left: 1px solid;
+}
+
+#requests {
+  border-left: 1px solid;
+}
+

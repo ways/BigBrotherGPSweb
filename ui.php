@@ -18,7 +18,8 @@
   }
 
   function show_requests ($requests, $sid ='') {
-    print '<h3>Lates requests</h3> <ul id="requests">';
+    print '<h3>Lates requests by each device</h3>
+      <ul id="requests">';
 
     foreach ($requests as $key => $d) {
       print '<li><a href="'.
@@ -29,6 +30,8 @@
         $d['rdate'].
         '</a> '.
         $d['sname'].
+        ' | Battery: '.$d['battery'].
+        ' | Charging: '.$d['charging'].
         '</li>';
     }
     print '</ul>';
@@ -52,6 +55,8 @@
         '">'.
         $d['sname'].
         '</a>'.
+        ' | Battery: '.$d['battery'].
+        ' | Charging: '.$d['charging'].
         '</li>';
 
     }

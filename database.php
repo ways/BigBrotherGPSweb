@@ -1,7 +1,9 @@
 <?php
 
   function clean_input ($in) {
-    return stripslashes ( $in );
+    global $mysqli;
+
+    return mysqli_real_escape_string ( $mysqli, $in );
   }
 
   function get_secret ($sname) {
@@ -70,20 +72,22 @@
   }
 
   function add_request (
-    $lat = '', 
-    $lon = '', 
-    $acc = '', 
-    $secret = '',
-    $ip ) {
+    $lat = '',
+    $lon = '',
+    $acc = '',
+    $sname = '',
+    $ip,
+    $battery = 0,
+    $charging = 0 ) {
     global $mysqli, $verbose;
 
-    $sid = get_secret ($secret);  
+    $sid = get_secret ($sname);
 
     $query = 
       "
       INSERT INTO
-      requests (latitude, longitude, accuracy, sid, rip)
-      values ('$lat', '$lon', '$acc', '$sid', '$ip')
+      requests (latitude, longitude, accuracy, sid, rip, battery, charging)
+      values ('$lat', '$lon', '$acc', '$sid', '$ip', '$battery', '$charging')
       ";
 
     if($verbose)
@@ -95,12 +99,15 @@
     return true;
   }
 
-  function list_requests ($sid = '', $sname = '') {
-    global $mysqli, $verbose;
+  function list_requests ($sid = '', $rid = '') {
+    global $mysqli, $verbose, $stale_time;
     $out = array();
 
     if ($verbose)
       print 'list_requests';
+
+    if ($sid)
+      return list_latest_requests ($sid, $count = 50);
 
     $query = "
       SELECT s . * , r . *
@@ -110,14 +117,20 @@
           SELECT rid
           FROM requests
           WHERE sid = s.sid
+      ";
+
+    if ($rid)
+      $query .= "
+        AND rid = $rid
+      ";
+
+    $query .= "
+        AND rdate > ( unix_timestamp( ) - $stale_time )
           ORDER BY rid DESC
           LIMIT 1
         )
       ORDER BY rdate DESC
       ";
-
-    if ($sid)
-      return list_latest_requests ($sid, $count = 50);
 
     if ($verbose)
       print $query;

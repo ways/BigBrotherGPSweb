@@ -10,6 +10,6 @@
   $verbose  = false;
   #$verbose  = true;
   $testdata = false;
-  $request_count = 3;
+  $stale_time = 172800; # > 2 days
 
 ?>

@@ -2,18 +2,17 @@
 
 
 === Must have ===
-* Show one of each device on default map. Mark outdated ones.
-* Show clickable list of devices, and when they last reported.
 * SQL creation files in git.
-* Show tags on map markers (name, date).
+* Show tags on map markers (name, date). Will do this with OpenLayers
+   or mapbox.
 
 === Should have ===
 * Authentication for map/list.
-* Store battery, charging, speed, etc.
+* Store speed and other?
 
 === Nice to have ===
-* Authentication for reporting (based on secret).
-* Screenshot on github.
+* Whitelist for reporting (based on secret).
+* Update screenshot on github.
 * Avatars / logos (car/boat/person)
 * Color based on battery
 * Show speed
@@ -28,4 +27,4 @@
 
 === Nice to have ===
 * Read return codes after post. I.e. "You've been stolen. Report more often."
-* Set avatar?
+

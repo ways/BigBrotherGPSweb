@@ -78,7 +78,14 @@
     $sname = '',
     $ip,
     $battery = 0,
-    $charging = 0 ) {
+    $charging = 0,
+    $provider = '',
+    $bearing = -1,
+    $speed = -1,
+    $time = '',
+    $deviceid = '',
+    $subscriberid = ''
+  ) {
     global $mysqli, $verbose;
 
     $sid = get_secret ($sname);

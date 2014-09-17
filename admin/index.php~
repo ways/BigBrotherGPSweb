@@ -1,0 +1,10 @@
+<?php
+
+  include ('../database.php');
+  include ('../ui.php');
+  include ('../html_header.html');
+
+  show_menu();
+
+
+?>

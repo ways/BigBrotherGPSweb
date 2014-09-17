@@ -1,5 +1,15 @@
 <?php
 
+  function show_menu () {
+    print '
+      <div id="menu">
+        <img src="img/icon_b.jpeg" />
+        <a href="'. $_SERVER['PHP_SELF'] .'" id="home">BigBrotherGPS Map</a> |
+        <a href="'. $_SERVER['PHP_SELF'] .'/admin/">Admin</a> |
+        <a href="'. $_SERVER['PHP_SELF'] .'/about/">About</a>
+      </div>';
+  }
+
   function show_devices ($devices) {
     #print_r($devices);
 
@@ -71,7 +81,7 @@
     $php_array = get_coordinates ($requests);
 
     print '
-   <div id="map" style="width:400px;height:400px;"></div>
+   <div id="map" style="width:480px;height:480px;"></div>
 
 <script src="http://openlayers.org/api/OpenLayers.js"></script>
 <script>

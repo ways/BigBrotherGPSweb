@@ -3,6 +3,28 @@ body {
   font-family: sans-serif;
 }
 
+/* unvisited link */
+a:link {
+  color: black;
+  text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+    color: black;
+}
+
+/* mouse over link */
+a:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+/* selected link */
+a:active {
+  color: #0000FF;
+}
+
 #devices {
   border-left: 1px solid;
 }
@@ -11,3 +33,10 @@ body {
   border-left: 1px solid;
 }
 
+#menu img {
+  width: 40px;
+}
+
+#home {
+  font-size: 150%;
+}

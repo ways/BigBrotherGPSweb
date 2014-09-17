@@ -18,12 +18,22 @@
     $lon = clean_input($_POST['longitude']);
     $acc = clean_input($_POST['accuracy']);
     $secret = clean_input($_POST['secret']);
-    $battery = clean_input($_POST['battlevel']);
-    $charging = clean_input($_POST['charging']);
+    @$battery = clean_input($_POST['battlevel']);
+    @$charging = clean_input($_POST['charging']);
+    @$provider = clean_input($_POST["provider"]);
+    @$bearing = clean_input($_POST["bearing"]);
+    @$speed = clean_input($_POST["speed"]);
+    @$time = clean_input($_POST["time"]);
+    @$deviceid = clean_input($_POST["deviceid"]);
+    @$subscriberid = clean_input($_POST["subscriberid"]);
 
     $ip = $_SERVER['REMOTE_ADDR'];
 
-    if ( add_request ($lat, $lon, $acc, $secret, $ip, $battery, $charging) ) {
+    if (
+      add_request (
+        $lat, $lon, $acc, $secret, $ip, $battery, $charging,
+        $provider, $bearing, $speed, $time, $deviceid, $subscriberid
+      ) ) {
       print ("200 OK at ".date('Y-m-d H:i')." from $secret.");
     } else {
       print ("Error! Something wrong with setup or data");
@@ -49,7 +59,7 @@
 
   include ('html_header.html');
 
-  print '<h1><a href="'. $_SERVER['PHP_SELF'] .'">BigBrotherGPS Map</a></h1>';
+  show_menu ();
 
   $requests = list_requests ($sid, $rid);
   $devices = list_secrets ();

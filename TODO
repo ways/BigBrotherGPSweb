@@ -2,7 +2,7 @@
 
 
 === Must have ===
-* Show tags on map markers (name, date). Will do this with OpenLayers or mapbox.
+* Show tags on map markers (name, date). Will do this with OpenLayers if possible, mapbox or Google if not.
 
 === Should have ===
 * Authentication for map/list.

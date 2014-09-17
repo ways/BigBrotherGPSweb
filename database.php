@@ -93,8 +93,8 @@
     $query = 
       "
       INSERT INTO
-      requests (latitude, longitude, accuracy, sid, rip, battery, charging)
-      values ('$lat', '$lon', '$acc', '$sid', '$ip', '$battery', '$charging')
+      requests (latitude, longitude, accuracy, sid, rip, battery, charging, provider, bearing, speed, time, deviceid, subscriberid)
+      values ('$lat', '$lon', '$acc', '$sid', '$ip', '$battery', '$charging', '$provider', '$bearing', '$speed', '$time', '$deviceid', '$subscriberid')
       ";
 
     if($verbose)

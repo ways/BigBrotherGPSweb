@@ -4,14 +4,18 @@
     print '
       <html>
         <head>
-          <title> BigBrother </title>
+          <title>BigBrother</title>
 
           <meta name="HandheldFriendly" content="true" />
           <meta name="viewport" content="width=480, user-scalable=yes" />
-          <link rel="Shortcut icon" type="image/x-icon" href="'. $basepath .'img/icon_b.jpeg"/>
-
+          <meta http-equiv="refresh" content="600">
           <link rel="stylesheet" type="text/css" href="'. $basepath .'style.css">
-          <meta charset="utf-8" />
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+          <meta http-equiv="expires" content="'. date(DATE_RFC2822, mktime() + 600) .'">
+
+          <link rel="apple-touch-icon-precomposed" href="'. $basepath .'img/icon_b.jpeg">
+          <link rel="Shortcut icon" type="image/x-icon" href="'. $basepath .'img/icon_b.jpeg">
+
         </head>
       <body>';
   }
@@ -29,18 +33,22 @@
   function show_devices ($devices) {
     #print_r($devices);
 
-    print '<h3>All devices</h3> <ul id="devices">';
+    print '<table id="devicelist">
+      <tr><th id="devicehead" colspan="2">Devices</th></tr>
+      <tr><th>Name</th><th>Type</td></tr>';
 
     foreach ($devices as $key => $d) {
-      print '<li><a href="'.
+      print '<tr><td><a href="'.
         $_SERVER['PHP_SELF'].
         '?sid='.
         $d['sid'].
         '">'.
         $d['sname'].
-        '</a></li>';
+        '</a></td><td>'.
+        $d['type'].
+        '</td></tr>';
     }
-    print '</ul>';
+    print '</table>';
   }
 
   function show_requests ($requests, $sid ='') {
@@ -97,7 +105,7 @@
     $php_array = get_coordinates ($requests);
 
     print '
-   <div id="map" style="width:480px;height:480px;"></div>
+   <div id="map" style="width:460px;height:460px;"></div>
 
 <script src="http://openlayers.org/api/OpenLayers.js"></script>
 <script>

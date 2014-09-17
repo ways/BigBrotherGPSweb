@@ -23,8 +23,13 @@ a:active {
   color: #0000FF;
 }
 
-#devices {
-  border-left: 1px solid;
+#devicelist {
+  /*border: 1px solid;*/
+  width: 460px;
+}
+
+th {
+  border-bottom: 1px solid;
 }
 
 #requests {

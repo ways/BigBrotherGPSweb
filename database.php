@@ -125,7 +125,7 @@
       ";
 
     $query .= "
-        AND rdate > ( unix_timestamp( ) - $stale_time )
+        AND rdate > FROM_UNIXTIME( ( unix_timestamp( ) - $stale_time ) )
           ORDER BY rid DESC
           LIMIT 1
         )

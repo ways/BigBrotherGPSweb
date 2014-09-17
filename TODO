@@ -5,11 +5,10 @@
 * Show tags on map markers (name, date). Will do this with OpenLayers if possible, mapbox or Google if not.
 
 === Should have ===
-* Authentication for map/list.
+* Optional authentication for map/list.
 
 === Nice to have ===
 * Whitelist for reporting (based on secret).
-* Update screenshot on github.
 * Avatars / logos (car/boat/person)
 * Color based on battery
 * Show speed

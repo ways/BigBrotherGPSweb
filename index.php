@@ -14,6 +14,7 @@
   }
 
   if ( isset ( $_POST['latitude'] )) {
+    $ip = $_SERVER['REMOTE_ADDR'];
     $lat = clean_input($_POST['latitude']);
     $lon = clean_input($_POST['longitude']);
     $acc = clean_input($_POST['accuracy']);
@@ -26,8 +27,6 @@
     @$time = clean_input($_POST["time"]);
     @$deviceid = clean_input($_POST["deviceid"]);
     @$subscriberid = clean_input($_POST["subscriberid"]);
-
-    $ip = $_SERVER['REMOTE_ADDR'];
 
     if (
       add_request (

@@ -143,7 +143,11 @@
   </script>
 
 ';
+  }
 
+  function show_settings ($settings) {
+    print '<h3>Settings</h3>';
+    print_r($settings);
   }
 
 ?>

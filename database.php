@@ -208,6 +208,56 @@
     return $out;
   }
 
+  function list_settings ($key) {
+    global $mysqli, $verbose;
+    $out = array ();
+
+    $query =
+      'SELECT *
+       FROM settings
+      ';
+
+    if($key)
+      $query .= '
+        WHERE name LIKE "'.$key.'"
+      ';
+
+    $result = mysqli_query( $mysqli, $query );
+    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+      if($verbose)
+        print_r($row);
+      $out[] = $row;
+    }
+
+    return $out;
+  }
+
+  function list_users ($uid = 0, $uname = '') {
+    global $mysqli, $verbose;
+    $out = array ();
+
+    $query =
+      'SELECT *
+       FROM users
+      ';
+
+    if($uname)
+      $query .= '
+        WHERE uname LIKE "'.$uname.'"
+      ';
+
+    $result = mysqli_query( $mysqli, $query );
+    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+      if($verbose)
+        print_r($row);
+      if(0 < count( $uname) )
+        return $row;
+      $out[$row['uid']] = $row;
+    }
+
+    return $out;
+  }
+
   # Connect to db mysqli("localhost", "user", "password", "database");
   $mysqli = new mysqli($host, $user, $password, $database);
   if ($mysqli->connect_errno) {

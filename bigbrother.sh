@@ -44,7 +44,7 @@ charging=$( /usr/bin/upower -i /org/freedesktop/UPower/devices/battery_BAT0 | gr
 
 status=$( 
   /usr/bin/curl --silent --data \
-  "secret=$( hostname )&accuracy=1000&longitude=${lon}&latitude=${lat}&battlevel=${battery}&charging=${charging}&provider=ipinfo.io" \
+  "secret=$( hostname )&accuracy=10000&longitude=${lon}&latitude=${lat}&battlevel=${battery}&charging=${charging}&provider=ipinfo.io&bearing=-1&speed=-1" \
   ${URL}
 )
 

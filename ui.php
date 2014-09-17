@@ -1,12 +1,28 @@
 <?php
 
-  function show_menu () {
+  function show_header ( $basepath = '' ) {
+    print '
+      <html>
+        <head>
+          <title> BigBrother </title>
+
+          <meta name="HandheldFriendly" content="true" />
+          <meta name="viewport" content="width=480, user-scalable=yes" />
+          <link rel="Shortcut icon" type="image/x-icon" href="'. $basepath .'img/icon_b.jpeg"/>
+
+          <link rel="stylesheet" type="text/css" href="'. $basepath .'style.css">
+          <meta charset="utf-8" />
+        </head>
+      <body>';
+  }
+
+  function show_menu ( $basepath = '' ) {
     print '
       <div id="menu">
-        <img src="img/icon_b.jpeg" />
-        <a href="'. $_SERVER['PHP_SELF'] .'" id="home">BigBrotherGPS Map</a> |
-        <a href="'. $_SERVER['PHP_SELF'] .'/admin/">Admin</a> |
-        <a href="'. $_SERVER['PHP_SELF'] .'/about/">About</a>
+        <img src="'. $basepath .'img/icon_b.jpeg" />
+        <a href="http://'. $_SERVER['SERVER_NAME'] . dirname ($_SERVER['SCRIPT_NAME']) . '/' . $basepath .'" id="home">BigBrotherGPS Map</a> |
+        <a href="http://'. $_SERVER['SERVER_NAME'] . dirname ($_SERVER['SCRIPT_NAME']) . '/' . $basepath .'admin/">Admin</a> |
+        <a href="http://'. $_SERVER['SERVER_NAME'] . dirname ($_SERVER['SCRIPT_NAME']) . '/' . $basepath .'about/">About</a>
       </div>';
   }
 

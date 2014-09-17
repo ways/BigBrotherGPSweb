@@ -57,8 +57,7 @@
     print_r($_POST);
   }
 
-  include ('html_header.html');
-
+  show_header ();
   show_menu ();
 
   $requests = list_requests ($sid, $rid);

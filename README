@@ -20,11 +20,11 @@ This allows for:
 == Limitations ==
 * One needs a SIM-card for data traffic (or rely on accessable, wifi networks).
 * The battery of the phone will limit your uptime if you don't have a powersource.
+* SSL is not yet supported by the app, I think.
 
 == Other possibilities ==
-* A client can easily be written for linux machines (i.e. raspberry pi).
-* Protocol is open and very basic, so people with skills can implement apps for other phones.
+* Protocol is open and very basic, so people with skills can implement apps for other phones. A bash client for linux is included.
 
 == Current status ==
 
-![Screenshot of alfa](https://github.com/ways/BigBrotherGPSweb/blob/master/screenshot.png?raw=true)
+![Screenshot of beta](https://github.com/ways/BigBrotherGPSweb/blob/master/screenshot.png?raw=true)

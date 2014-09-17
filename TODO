@@ -6,8 +6,6 @@
 
 === Should have ===
 * Authentication for map/list.
-* Store speed and other?
-* An CLI client for testing and tracking laptops.
 
 === Nice to have ===
 * Whitelist for reporting (based on secret).
@@ -23,6 +21,7 @@
 
 === Should have ===
 * Option to report more often if in motion.
+* Other optimizations to limit battery usage?
 
 === Nice to have ===
 * Read return codes after post. I.e. "You've been stolen. Report more often.", "Please snap a pic and upload".

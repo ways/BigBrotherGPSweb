@@ -7,9 +7,17 @@
 
 ?>
 
-  Source available on: <a href="https://github.com/ways/BigBrotherGPSweb">github.com</a><br/>
-  App from <a href="http://bk.gnarf.org/creativity/bigbrothergps/">bk.gnarf.org</a><br/>
-  <a href="../BigBrotherGPS.apk">Download Android client</a>
+<p>
+  Everything here is GPL. Source for server side is available on: <a href="https://github.com/ways/BigBrotherGPSweb">github.com</a>.<br/>
+</p>
+
+<p>
+  Source for Android app from <a href="http://bk.gnarf.org/creativity/bigbrothergps/">bk.gnarf.org</a>.<br/>
+</p>
+
+<p>
+  Download <a href="../BigBrotherGPS.apk">Android client</a> directly.
+</p>
 
 <?php
 

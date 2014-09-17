@@ -6,7 +6,6 @@ body {
 /* unvisited link */
 a:link {
   color: black;
-  text-decoration: none;
 }
 
 /* visited link */
@@ -17,7 +16,6 @@ a:visited {
 /* mouse over link */
 a:hover {
   color: black;
-  text-decoration: underline;
 }
 
 /* selected link */

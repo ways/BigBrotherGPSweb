@@ -43,13 +43,17 @@
 
   # If not a request from app, go on:
 
-  $sid = 0;
+  $sid = 0; # Selecting one device
   if ( isset ($_GET['sid']))
     $sid = clean_input($_GET['sid']);
 
-  $rid = 0;
+  $rid = 0; # Selecting one request
   if ( isset ($_GET['rid']))
     $rid = clean_input($_GET['rid']);
+
+  $map = 'osm'; # Select map type
+  if ( isset ($_GET['map']))
+    $map = clean_input($_GET['map']);
 
   if ($verbose) {
     print 'Post:<br/>';
@@ -62,7 +66,7 @@
   $requests = list_requests ($sid, $rid);
   $devices = list_secrets ();
 
-  show_map ($devices, $requests);
+  show_map ($devices, $requests, $map);
   show_requests ($requests);
   show_devices ($devices);
 

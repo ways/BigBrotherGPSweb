@@ -4,6 +4,11 @@
 * MySQL
 * A static IP
 
+== Setup on server ==
+* Clone git repo.
+* Set up webserver to find the files.
+* Create db and users.
+
 == Setup on phone ==
 * Install app
 * Set up server URL

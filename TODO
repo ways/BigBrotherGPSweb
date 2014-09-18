@@ -9,9 +9,10 @@
 
 === Nice to have ===
 * Whitelist for reporting (based on secret).
-* Avatars / logos (car/boat/person)
-* Color based on battery
-* Show speed
+* Avatars / logos. Need logo for main site, icon for type (car/boat/person/laptop/container/phone/unknown).
+* Color based on battery?
+* Show speed/bearing if in motion.
+* Geolocation of map viewer ( http://openlayers.org/en/v3.0.0/examples/geolocation-orientation.html )
 
 == Features wanted in the App ==
 

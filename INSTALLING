@@ -8,6 +8,7 @@
 * Clone git repo.
 * Set up webserver to find the files.
 * Create db and users.
+* SSL is not required, but should be used.
 
 == Setup on phone ==
 * Install app

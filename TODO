@@ -6,6 +6,7 @@
 
 === Should have ===
 * Optional authentication for map/list.
+* Get maps over to SSL, to avoid mixed content warning when on SSL.
 
 === Nice to have ===
 * Whitelist for reporting (based on secret).
@@ -14,10 +15,10 @@
 * Show speed/bearing if in motion.
 * Geolocation of map viewer ( http://openlayers.org/en/v3.0.0/examples/geolocation-orientation.html )
 
+
 == Features wanted in the App ==
 
 === Must have ===
-* SSL support.
 
 === Should have ===
 * Option to report more often if in motion.

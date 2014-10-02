@@ -8,6 +8,7 @@
 
           <meta name="HandheldFriendly" content="true" />
           <meta name="viewport" content="width=480, user-scalable=yes" />
+
           <meta http-equiv="refresh" content="600">
           <link rel="stylesheet" type="text/css" href="'. $basepath .'style.css">
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -16,9 +17,12 @@
           <link rel="apple-touch-icon-precomposed" href="'. $basepath .'img/icon_b.jpeg">
           <link rel="Shortcut icon" type="image/x-icon" href="'. $basepath .'img/icon_b.jpeg">
 
+          <link rel="stylesheet" href="'. $basepath .'include/leaflet.css" />
+          <script src="'. $basepath .'include/leaflet.js"></script>
+
           <script src="http://openlayers.org/en/v3.0.0/build/ol.js" type="text/javascript"></script>
         </head>
-      <body onload="init()">';
+      <body>';
   }
 
   function show_menu ( $basepath = '' ) {
@@ -99,8 +103,8 @@
   }
 
   function show_map ($dev, $req, $type = '') {
-    if ('ol' == $type)
-      return show_ol($dev, $req);
+    if ('leafletjs' == $type)
+      return show_leafletjs ($dev, $req);
     else
       return show_osm($dev, $req);
   }
@@ -135,151 +139,92 @@
     // create layer switcher widget in top right corner of map.
     var layer_switcher= new OpenLayers.Control.LayerSwitcher({});
     map.addControl(layer_switcher);
-    //Set start centrepoint and zoom    
+    //Set start centrepoint and zoom
     var lonLat = new OpenLayers.LonLat( lon,lat )
           .transform(
             new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
             map.getProjectionObject() // to Spherical Mercator Projection
           );
-    map.setCenter (lonLat, zoom);  
+    map.setCenter (lonLat, zoom);
 
   </script>
 
 ';
   }
 
-  function show_ol ($devices, $requests) {
-    # http://openlayers.org/en/v3.0.0/examples/icon.html
+  function show_leafletjs ($devices, $requests) {
+    # http://leafletjs.com/download.html
 
-    print '<div id="map" style="width:460px;height:460px;"></div>
-  <script>
+    $requestcoordinates = get_coordinates ($requests);
+    ?>
 
-function init() {
-    map = new OpenLayers.Map("map");
-    var mapnik         = new OpenLayers.Layer.Stamen("toner-background");
-    var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
-    var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
-    var position       = new OpenLayers.LonLat(30,55.515).transform( fromProjection, toProjection);
-    var zoom           = 4; 
+    <div id="map" style="width: 600px; height: 400px"></div>
+    <script src="include/leaflet.js"></script>
 
-    map.addLayer(mapnik);
-    map.setCenter(position, zoom );
+    <script>
 
+       function onLocationFound(e) {
+         var radius = e.accuracy / 2;
+         L.marker(e.latlng).addTo(map)
+           .bindPopup("You are within " + radius + " meters from this point").openPopup();
+         L.circle(e.latlng, radius).addTo(map);
+       }
 
-var markers = new OpenLayers.Layer.Markers( "Markers" );
-map.addLayer(markers);
+       function onLocationError(e) {
+         alert(e.message);
+       }
 
-var icon1 = new OpenLayers.Icon("http://www.openlayers.org/dev/img/marker.png", size, offset);
-var icon2 = new OpenLayers.Icon("http://www.openlayers.org/dev/img/marker-gold.png", size, offset);
-var icon3 = new OpenLayers.Icon("http://www.openlayers.org/dev/img/marker-green.png", size, offset);
+    <?php
+      #print_r($requestcoordinates);
+      /*          floatval($r['latitude']),
+          floatval($r['longitude']),
+          $r['sname'],
+          $r['battery'],
+          $r['charging'],
+          $r['type'],
+          rdate */
 
-        var lonLat1 = new OpenLayers.LonLat(0.1062,51.5171).transform(
-                        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                        map.getProjectionObject() // to Spherical Mercator Projection
-                        );
+      print "var map = L.map('map').setView([". $requestcoordinates[0][0] .",". $requestcoordinates[0][1] ."], 14);";
+    ?>
+      L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
 
+      var LeafIcon = L.Icon.extend({
+        options: {
+          iconSize:     [25, 25],
+          iconAnchor:   [0, 0],
+          popupAnchor:  [5, -5]
+        }
+      });
 
-        var lonLat2 = new OpenLayers.LonLat(2.3470,48.8742).transform(
-                        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                        map.getProjectionObject() // to Spherical Mercator Projection
-                        );
+      var carxIcon = new LeafIcon({iconUrl: 'img/car.png'}),
+        xIcon = new LeafIcon({iconUrl: 'img/marker.png'}),
+        personxIcon = new LeafIcon({iconUrl: 'img/person.png'}),
+        laptopxIcon = new LeafIcon({iconUrl: 'img/laptop.png'});
 
-                        var lonLat3 = new OpenLayers.LonLat(7.2692,43.7028).transform(
-                        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                        map.getProjectionObject() // to Spherical Mercator Projection
-                        );
+    <?php
+      foreach ($requestcoordinates as $r) {
+        print '
+          L.marker(
+            ['.$r[0].',
+            '.$r[1].'],
+            {icon: '. $r[5] .'xIcon}).bindPopup( "'.
+            $r[2] .
+            ' at '.
+            $r[6] .
+            ' (batt: '. $r[3] .')"'.
+            ').addTo(map);
+        ';
+      }
+    ?>
 
-var marker1 = new OpenLayers.Marker(lonLat1, icon1);
-    var size = new OpenLayers.Size(21,25);
-    var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-    marker1.icon.size = size;
-marker1.icon.offset = offset;
+      map.on('locationfound', onLocationFound);
+      map.on('locationerror', onLocationError);
+      map.locate({setView: true, maxZoom: 15});
 
-var feature = new OpenLayers.Feature(markers, lonLat1);
-feature.closeBox = true;
-feature.popupClass = OpenLayers.Class(OpenLayers.Popup.AnchoredBubble, { autoSize: true });
-feature.data.popupContentHTML = "<p>Marker1<p>";
-feature.data.overflow = "hidden";
-
-marker1.feature = feature;
-
-
-var markerClick = function (evt) {
-    if (this.popup == null) {
-        this.popup = this.createPopup(this.closeBox);
-        map.addPopup(this.popup);
-        this.popup.show();
-    } else {
-        this.popup.toggle();
-    }
-    OpenLayers.Event.stop(evt);
-};
-marker1.events.register("mousedown", feature, markerClick);
-
-var marker2 = new OpenLayers.Marker(lonLat2);
-        var size = new OpenLayers.Size(21,25);
-    var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-
-
-
-var feature = new OpenLayers.Feature(markers, lonLat2);
-
-feature.closeBox = true;
-feature.popupClass = OpenLayers.Class(OpenLayers.Popup.AnchoredBubble, { autoSize: true });
-feature.data.popupContentHTML = "<p>Marker2<p>";
-feature.data.overflow = "hidden";
-marker2.feature = feature;
-
-var markerClick = function (evt) {
-    if (this.popup == null) {
-        this.popup = this.createPopup(this.closeBox);
-        map.addPopup(this.popup);
-        this.popup.show();
-    } else {
-        this.popup.toggle();
-    }
-    OpenLayers.Event.stop(evt);
-};
-marker2.events.register("mousedown", feature, markerClick);
-
-
-
-var marker3 = new OpenLayers.Marker(lonLat3);
-        var size = new OpenLayers.Size(21,25);
-    var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-    marker3.icon.size = size;
-marker3.icon.offset = offset;
-var feature = new OpenLayers.Feature(markers, lonLat3);
-feature.closeBox = true;
-feature.popupClass = OpenLayers.Class(OpenLayers.Popup.AnchoredBubble, { autoSize: true });
-feature.data.popupContentHTML = "<p>Marker 3<p>";
-feature.data.overflow = "hidden";
-
-marker3.feature = feature;
-
-var markerClick = function (evt) {
-    if (this.popup == null) {
-        this.popup = this.createPopup(this.closeBox);
-        map.addPopup(this.popup);
-        this.popup.show();
-    } else {
-        this.popup.toggle();
-    }
-    OpenLayers.Event.stop(evt);
-};
-marker3.events.register("mousedown", feature, markerClick);
-
-markers.addMarker(marker1);
-
-markers.addMarker(marker2);
-
-markers.addMarker(marker3);
-
-  }
-</script>
-
-    ';
-
+      </script>
+    <?php
   }
 
   function show_settings ($settings) {

@@ -107,6 +107,8 @@
   }
 
   function list_requests ($sid = '', $rid = '') {
+    # List the 1 one lates request from each device/secret
+
     global $mysqli, $verbose, $stale_time;
     $out = array();
 
@@ -153,6 +155,8 @@
   }
 
   function list_latest_requests ($sid = '', $count = 10) {
+    # List the $count latest requests from one device/secret.
+
     global $mysqli, $verbose;
     $out = array();
 
@@ -191,6 +195,8 @@
   }
 
   function get_coordinates ($requests) {
+    # Format requests as coordinates ++ for use in javascript
+
     $out = array();
 
     foreach ($requests as $key => $r) {
@@ -203,7 +209,16 @@
       if ( ( 0 == $lat ) ||
         (0 == $lon ) )
         continue;
-      $out[] = array ( floatval($r['latitude']), floatval($r['longitude']));
+      $out[] = 
+        array ( 
+          floatval($r['latitude']), 
+          floatval($r['longitude']),
+          $r['sname'],
+          $r['battery'],
+          $r['charging'],
+          $r['type'],
+          $r['rdate']
+        );
     }
     return $out;
   }

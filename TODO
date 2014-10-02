@@ -1,9 +1,5 @@
 == TODOs ==
 
-
-=== Must have ===
-* Show tags on map markers (name, date). Will do this with OpenLayers if possible, mapbox or Google if not.
-
 === Should have ===
 * Optional authentication for map/list.
 * Get maps over to SSL, to avoid mixed content warning when on SSL.
@@ -13,8 +9,6 @@
 * Avatars / logos. Need logo for main site, icon for type (car/boat/person/laptop/container/phone/unknown).
 * Color based on battery?
 * Show speed/bearing if in motion.
-* Geolocation of map viewer ( http://openlayers.org/en/v3.0.0/examples/geolocation-orientation.html )
-
 
 == Features wanted in the App ==
 

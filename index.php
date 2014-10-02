@@ -51,7 +51,7 @@
   if ( isset ($_GET['rid']))
     $rid = clean_input($_GET['rid']);
 
-  $map = 'osm'; # Select map type
+  $map = 'leafletjs'; # Select map type
   if ( isset ($_GET['map']))
     $map = clean_input($_GET['map']);
 

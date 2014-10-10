@@ -66,7 +66,7 @@
   $requests = list_requests ($sid, $rid);
   $devices = list_secrets ();
 
-  show_map ($devices, $requests, $map);
+  show_map ($devices, $requests, $map, $rid);
   show_requests ($requests);
   show_devices ($devices);
 

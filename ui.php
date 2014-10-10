@@ -102,9 +102,9 @@
     print '</ul>';
   }
 
-  function show_map ($dev, $req, $type = '') {
+  function show_map ($dev, $req, $type = '', $rid) {
     if ('leafletjs' == $type)
-      return show_leafletjs ($dev, $req);
+      return show_leafletjs ($dev, $req, $rid);
     else
       return show_osm($dev, $req);
   }
@@ -152,7 +152,7 @@
 ';
   }
 
-  function show_leafletjs ($devices, $requests) {
+  function show_leafletjs ($devices, $requests, $rid = 0) {
     # http://leafletjs.com/download.html
 
     $requestcoordinates = get_coordinates ($requests);
@@ -221,9 +221,17 @@
 
       map.on('locationfound', onLocationFound);
       map.on('locationerror', onLocationError);
-      map.locate({setView: true, maxZoom: 15});
+
+    <?php
+      # Disable geolocation if looking for a specific request
+      if (0 == $rid ) {
+        print 'map.locate({setView: true, maxZoom: 15});';
+      }
+
+    ?>
 
       </script>
+
     <?php
   }
 

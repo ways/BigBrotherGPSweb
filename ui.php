@@ -192,16 +192,17 @@
 
       var LeafIcon = L.Icon.extend({
         options: {
-          iconSize:     [25, 25],
-          iconAnchor:   [0, 0],
+          iconSize:     [50, 50],
+          iconAnchor:   [25, 25],
           popupAnchor:  [5, -5]
         }
       });
 
-      var carxIcon = new LeafIcon({iconUrl: 'img/car.png'}),
-        xIcon = new LeafIcon({iconUrl: 'img/marker.png'}),
-        personxIcon = new LeafIcon({iconUrl: 'img/person.png'}),
-        laptopxIcon = new LeafIcon({iconUrl: 'img/laptop.png'});
+      var carxIcon = new LeafIcon({iconUrl: 'img/car.svg'}),
+        xIcon = new LeafIcon({iconUrl: 'img/unknown.svg'}),
+        personxIcon = new LeafIcon({iconUrl: 'img/person.svg'}),
+        phonexIcon = new LeafIcon({iconUrl: 'img/phone.svg'}),
+        laptopxIcon = new LeafIcon({iconUrl: 'img/laptop.svg'});
 
     <?php
       foreach ($requestcoordinates as $r) {

@@ -17,8 +17,8 @@
     $ip = $_SERVER['REMOTE_ADDR'];
     $lat = clean_input($_POST['latitude']);
     $lon = clean_input($_POST['longitude']);
-    $acc = clean_input($_POST['accuracy']);
     $secret = clean_input($_POST['secret']);
+    @$acc = clean_input($_POST['accuracy']);
     @$battery = clean_input($_POST['battlevel']);
     @$charging = clean_input($_POST['charging']);
     @$provider = clean_input($_POST["provider"]);
@@ -27,17 +27,40 @@
     @$time = clean_input($_POST["time"]);
     @$deviceid = clean_input($_POST["deviceid"]);
     @$subscriberid = clean_input($_POST["subscriberid"]);
+  } else if ( isset ( $_GET['latitude'] )) { 
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $lat = clean_input($_GET['latitude']); 
+    $lon = clean_input($_GET['longitude']);
+    $secret = clean_input($_GET['secret']); 
+    @$acc = clean_input($_GET['accuracy']);
+    @$battery = clean_input($_GET['battlevel']); 
+    @$charging = clean_input($_GET['charging']);
+    @$provider = clean_input($_GET["provider"]); 
+    @$bearing = clean_input($_GET["bearing"]);
+    @$speed = clean_input($_GET["speed"]); 
+    @$time = clean_input($_GET["time"]);
+    @$deviceid = clean_input($_GET["deviceid"]); 
+    @$subscriberid = clean_input($_GET["subscriberid"]);
+  }
 
-    if (
+  if ( $lat ) { # If we've got a request:
+    openlog('bigbrothergpsweb', LOG_NDELAY, LOG_USER);
+    $msg = "Error! Something wrong with setup or data: " . $secret;
+
+    if ( # If adding request went OK
       add_request (
         $lat, $lon, $acc, $secret, $ip, $battery, $charging,
         $provider, $bearing, $speed, $time, $deviceid, $subscriberid
       ) ) {
-      print ("200 OK at ".date('Y-m-d H:i')." from $secret.");
-    } else {
-      print ("Error! Something wrong with setup or data");
-    }
+      $msg = "200 OK. Logged request at ".date('Y-m-d H:i')." from $secret.";
+      print $msg;
+      if ($syslog)
+        syslog(LOG_NOTICE, $msg);
 
+    } else { # If adding request failed.
+      print $msg;
+      syslog(LOG_NOTICE, $msg);
+    }
     exit (0);
   }
 
@@ -51,10 +74,6 @@
   if ( isset ($_GET['rid']))
     $rid = clean_input($_GET['rid']);
 
-  $map = 'leafletjs'; # Select map type
-  if ( isset ($_GET['map']))
-    $map = clean_input($_GET['map']);
-
   if ($verbose) {
     print 'Post:<br/>';
     print_r($_POST);
@@ -66,7 +85,7 @@
   $requests = list_requests ($sid, $rid);
   $devices = list_secrets ();
 
-  show_map ($devices, $requests, $map, $rid);
+  show_map ($devices, $requests, $rid);
   show_requests ($requests);
   show_devices ($devices);
 

@@ -11,5 +11,6 @@
   #$verbose  = true;
   $testdata = false;
   $stale_time = 86400; # > 24 hrs
+  $syslog = false;
 
 ?>

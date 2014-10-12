@@ -102,14 +102,14 @@
     print '</ul>';
   }
 
-  function show_map ($dev, $req, $type = '', $rid) {
-    if ('leafletjs' == $type)
-      return show_leafletjs ($dev, $req, $rid);
-    else
-      return show_osm($dev, $req);
+  function show_map ($dev, $req, $rid) {
+    return show_leafletjs ($dev, $req, $rid);
+    #return show_osm($dev, $req);
   }
 
   function show_osm ($devices, $requests) {
+    # This function is no longer in use, and can over time be deleted.
+
     $php_array = get_coordinates ($requests);
 
     print '

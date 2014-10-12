@@ -8,9 +8,14 @@
 * Clone git repo.
 * Set up webserver to find the files.
 * Create db and users.
-* SSL is not required, but should be used.
 
 == Setup on phone ==
-* Install app
+* Install BigBrotherGPS.apk (app)
 * Set up server URL
 * Secret is used as device name
+
+== Security ==
+* SSL is not required, but should be used.
+
+== Alternative android client ==
+* http://osmand.net/ can also be used as client. To do this activate the plugin for "logging services", and go to settings for this plugin. Under "online tracking" set web adress to http(s)://servername/?latitude={0}&longitude={1}&timestamp={2}&hdop={3}&altitude={4}&speed={5}&secret=<name of your device>

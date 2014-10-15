@@ -52,3 +52,11 @@ th {
   font-size: 150%;
   float:right;
 }
+
+.fresh {
+  background-color: #00FF99; #light green
+}
+
+.stale {
+  background-color: gray;
+}

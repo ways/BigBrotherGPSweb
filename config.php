@@ -6,10 +6,13 @@
   $user     = 'bigbrother';
   $password = 'bigbrother';
 
-  # other
+  # looks
   $websitetitle     = 'Telescreen';
+  $requestfresh     = 600;
+  $requeststale     = 60*60;
 
   # development
+  $version    = 0.5;
   $verbose    = false;
   #$verbose   = true;
   $testdata   = false;

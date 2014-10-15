@@ -10,6 +10,7 @@
 * Color based on battery?
 * Show speed/bearing if in motion.
 * Color (in list?) based on age of request.
+* Make geoloc zooming in map optional.
 
 === 2.0 ===
 * Consider using http://symfony.com/ for further development.

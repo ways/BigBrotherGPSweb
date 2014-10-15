@@ -8,21 +8,19 @@
         <head>
           <title>'. $websitetitle .'</title>
 
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
           <meta name="HandheldFriendly" content="true" />
-          <meta name="viewport" content="width=480, user-scalable=yes" />
-
-          <meta http-equiv="refresh" content="600">
-          <link rel="stylesheet" type="text/css" href="'. $basepath .'style.css">
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+          <meta http-equiv="refresh" content="60">
           <meta http-equiv="expires" content="'. date(DATE_RFC2822, mktime() + 600) .'">
 
+          <link rel="stylesheet" type="text/css" href="'. $basepath .'style.css">
           <link rel="apple-touch-icon-precomposed" href="'. $basepath .'img/icon_b.jpeg">
           <link rel="Shortcut icon" type="image/x-icon" href="'. $basepath .'img/icon_b.jpeg">
 
           <link rel="stylesheet" href="'. $basepath .'include/leaflet.css" />
           <script src="'. $basepath .'include/leaflet.js"></script>
-
-          <script src="http://openlayers.org/en/v3.0.0/build/ol.js" type="text/javascript"></script>
         </head>
       <body>';
   }
@@ -62,25 +60,49 @@
   }
 
   function show_requests ($requests, $sid ='') {
+    global $requestfresh, $requeststale;
+
     print '
       <div class="more"><a id="more" href="#menu">[ Jump up ]</a></div>
       <h3>Lates requests by each device </h3>
-      <ul id="requests">';
+      <table id="requests">';
 
     foreach ($requests as $key => $d) {
-      print '<li><a href="'.
-        $_SERVER['PHP_SELF'].
-        '?rid='.
-        $d['rid'].
-        '">'.
-        $d['rdate'].
-        '</a> '.
-        $d['sname'].
-        ' | Battery: '.$d['battery'].
-        ' | Charging: '.$d['charging'].
-        '</li>';
+      $colorclass = '';
+
+      if ( mktime()-$requestfresh < strtotime ($d['rdate']) ) # Max 10 minutes old
+        $colorclass = 'fresh';
+      else if ( mktime()-$requeststale < strtotime ($d['rdate']) ) # If above 60 minutes old
+        $colorclass = 'stale';
+
+      print '
+        <tr>
+        <td class="'. $colorclass .'">
+          <a href="'. $_SERVER['PHP_SELF']. '?rid='.
+          $d['rid']. '">'.
+          $d['rdate']. '</a>
+        </td>
+        <td>
+         '. $d['sname'] .'
+        </td>
+        <td>
+          Batt: '. $d['battery'] .'
+        </td>
+        <td>
+          Charging: '. $d['charging'] .'
+        </td>
+        <td>
+          Provider: '. $d['provider'] .'
+        </td>
+        <td>
+          Bearing: '. $d['bearing'] .' &deg;
+        </td>
+        <td>
+          Speed: '. $d['speed']. ' m/s
+        </td>
+        </tr>';
     }
-    print '</ul>';
+    print '</table>';
   }
 
   function show_log ($log) {
@@ -103,6 +125,9 @@
         '</a>'.
         ' | Battery: '.$d['battery'].
         ' | Charging: '.$d['charging'].
+        ' | Provider: '.$d['provider'].
+        ' | Bearing: '.$d['bearing'].
+        ' | Speed: '.$d['speed'].
         '</li>';
 
     }

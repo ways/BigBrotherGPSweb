@@ -119,7 +119,7 @@
       return list_latest_requests ($sid, $count = 50);
 
     $query = "
-      SELECT s . * , r . *
+      SELECT s.* , r.*
       FROM secrets s
       INNER JOIN requests r 
         ON r.rid = (
@@ -217,7 +217,10 @@
           $r['battery'],
           $r['charging'],
           $r['type'],
-          $r['rdate']
+          $r['rdate'],
+          $r['provider'],
+          $r['bearing'],
+          $r['speed']
         );
     }
     return $out;

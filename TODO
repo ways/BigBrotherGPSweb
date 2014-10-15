@@ -1,14 +1,19 @@
 == TODOs ==
 
 === Should have ===
-* Optional authentication for map/list.
-* Get maps over to SSL, to avoid mixed content warning when on SSL.
+* User authentication for map/list. Assosiate with "secrets" from admin?
+* Get maps over to SSL, to avoid "mixed content" warning when on SSL.
 
 === Nice to have ===
 * Whitelist for reporting (based on secret).
 * Avatars / logos. Need logo for main site, icon for type (car/boat/person/laptop/container/phone/unknown).
 * Color based on battery?
 * Show speed/bearing if in motion.
+* Color (in list?) based on age of request.
+
+=== 2.0 ===
+* Consider using http://symfony.com/ for further development.
+
 
 == Features wanted in the App ==
 
@@ -17,6 +22,8 @@
 === Should have ===
 * Option to report more often if in motion.
 * Other optimizations to limit battery usage?
+* Sub-minute reporting
+* Option to report even if position is unknown?
 
 === Nice to have ===
 * Read return codes after post. I.e. "You've been stolen. Report more often.", "Please snap a pic and upload".

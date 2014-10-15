@@ -1,5 +1,10 @@
 body {
+  padding: 0;
+  margin: 0;
   font-family: sans-serif;
+}
+html, body, #map {
+    height: 100%;
 }
 
 /* unvisited link */
@@ -22,11 +27,6 @@ a:active {
   color: #0000FF;
 }
 
-#map {
-  width: 460px;
-  height: 460px;
-}
-
 #devicelist {
   /*border: 1px solid;*/
   width: 460px;
@@ -46,4 +46,9 @@ th {
 
 #home {
   font-size: 150%;
+}
+
+.more {
+  font-size: 150%;
+  float:right;
 }

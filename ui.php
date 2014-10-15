@@ -1,10 +1,12 @@
 <?php
 
   function show_header ( $basepath = '' ) {
+    global $websitetitle;
+
     print '
       <html>
         <head>
-          <title>BigBrother</title>
+          <title>'. $websitetitle .'</title>
 
           <meta name="HandheldFriendly" content="true" />
           <meta name="viewport" content="width=480, user-scalable=yes" />
@@ -26,13 +28,16 @@
   }
 
   function show_menu ( $basepath = '' ) {
+    global $websitetitle;
     print '
+      <div class="more"><a href="#more">[ Jump down ]</a></div>
       <div id="menu">
         <img src="'. $basepath .'img/icon_b.jpeg" />
-        <a href="http://'. $_SERVER['SERVER_NAME'] . dirname ($_SERVER['SCRIPT_NAME']) . '/' . $basepath .'" id="home">BigBrotherGPS Map</a> |
+        <a href="http://'. $_SERVER['SERVER_NAME'] . dirname ($_SERVER['SCRIPT_NAME']) . '/' . $basepath .'" id="home">'. $websitetitle .'</a> |
         <a href="http://'. $_SERVER['SERVER_NAME'] . dirname ($_SERVER['SCRIPT_NAME']) . '/' . $basepath .'admin/">Admin</a> |
         <a href="http://'. $_SERVER['SERVER_NAME'] . dirname ($_SERVER['SCRIPT_NAME']) . '/' . $basepath .'about/">About</a>
-      </div>';
+      </div>
+    ';
   }
 
   function show_devices ($devices) {
@@ -57,7 +62,9 @@
   }
 
   function show_requests ($requests, $sid ='') {
-    print '<h3>Lates requests by each device</h3>
+    print '
+      <div class="more"><a id="more" href="#menu">[ Jump up ]</a></div>
+      <h3>Lates requests by each device </h3>
       <ul id="requests">';
 
     foreach ($requests as $key => $d) {
@@ -158,7 +165,7 @@
     $requestcoordinates = get_coordinates ($requests);
     ?>
 
-    <div id="map" style="width: 600px; height: 400px"></div>
+    <div id="map"></div>
     <script src="include/leaflet.js"></script>
 
     <script>
@@ -171,7 +178,7 @@
        }
 
        function onLocationError(e) {
-         alert(e.message);
+         /*alert(e.message);*/
        }
 
     <?php

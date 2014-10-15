@@ -27,6 +27,7 @@
     @$time = clean_input($_POST["time"]);
     @$deviceid = clean_input($_POST["deviceid"]);
     @$subscriberid = clean_input($_POST["subscriberid"]);
+
   } else if ( isset ( $_GET['latitude'] )) { 
     $ip = $_SERVER['REMOTE_ADDR'];
     $lat = clean_input($_GET['latitude']); 

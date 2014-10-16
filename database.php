@@ -116,7 +116,7 @@
       print 'list_requests';
 
     if ($sid)
-      return list_latest_requests ($sid, $count = 50);
+      return list_latest_requests ($sid);
 
     $query = "
       SELECT s.* , r.*
@@ -154,7 +154,7 @@
     return $out;
   }
 
-  function list_latest_requests ($sid = '', $count = 10) {
+  function list_latest_requests ($sid = '', $count = 100) {
     # List the $count latest requests from one device/secret.
 
     global $mysqli, $verbose;
@@ -164,7 +164,7 @@
       print 'list_latest_requests';
 
     $query = "
-      SELECT r.*, s.sname
+      SELECT r.*, s.*
       FROM requests AS r
       LEFT JOIN secrets AS s
       ON r.sid = s.sid

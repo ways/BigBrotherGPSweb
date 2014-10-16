@@ -232,6 +232,10 @@
          L.circle(e.latlng, radius).addTo(map);
        }
 
+       function onLocationError(e) {
+         /*alert(e.message);*/
+       }
+
     <?php
       #print_r($requestcoordinates);
       /*          floatval($r['latitude']),

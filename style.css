@@ -4,7 +4,7 @@ body {
   font-family: sans-serif;
 }
 html, body, #map {
-    height: 100%;
+    height: 90%;
 }
 
 /* unvisited link */
@@ -62,9 +62,13 @@ th {
 }
 
 .fresh {
-  background-color: #00FF99; #light green
+  color: black;
 }
 
 .stale {
-  background-color: gray;
+  color: #EBFFEB; #light green
+}
+
+.dead {
+  color: light-gray;
 }

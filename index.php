@@ -45,7 +45,7 @@
     @$subscriberid = clean_input($_GET["subscriberid"]);
   }
 
-  if ( $lat ) { # If we've got a request:
+  if ( isset($lat) ) { # If we've got a request:
     openlog('bigbrothergpsweb', LOG_NDELAY, LOG_USER);
     $msg = "Error! Something wrong with setup or data: " . $secret;
 
@@ -89,9 +89,9 @@
 
   show_map ($devices, $requests, $rid);
   show_requests ($requests);
-  show_devices ($devices);
+  #show_devices ($devices);
 
-  show_log ( list_latest_requests() );
+  #show_log ( list_latest_requests() );
 
   include ('html_footer.html');
 ?>

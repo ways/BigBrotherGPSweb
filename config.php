@@ -7,12 +7,12 @@
   $password = 'bigbrother';
 
   # looks
-  $websitetitle     = 'Minitrue';
+  $websitetitle     = 'Minipriv';
   $requestfresh     = 600;
   $requeststale     = 60*60;
 
   # development
-  $version    = 0.5;
+  $version    = 0.6;
   $verbose    = false;
   #$verbose   = true;
   $testdata   = false;

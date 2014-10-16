@@ -16,8 +16,9 @@
           <meta http-equiv="expires" content="'. date(DATE_RFC2822, mktime() + 600) .'">
 
           <link rel="stylesheet" type="text/css" href="'. $basepath .'style.css">
-          <link rel="apple-touch-icon-precomposed" href="'. $basepath .'img/icon_b.jpeg">
-          <link rel="Shortcut icon" type="image/x-icon" href="'. $basepath .'img/icon_b.jpeg">
+          <link rel="apple-touch-icon-precomposed" href="'. $basepath .'img/icon.png">
+          <link rel="Shortcut icon" type="image/x-icon" href="'. $basepath .'img/icon.png">
+          <link rel="apple-touch-icon-precomposed" sizes="114x114" href="'. $basepath .'img/icon.png" />
 
           <link rel="stylesheet" href="'. $basepath .'include/leaflet.css" />
           <script src="'. $basepath .'include/leaflet.js"></script>
@@ -27,11 +28,11 @@
 
   function show_menu ( $basepath = '' ) {
     global $websitetitle;
+
     print '
       <div class="more"><a href="#more">[ Jump down ]</a></div>
       <div id="menu">
-        <img src="'. $basepath .'img/icon_b.jpeg" />
-        <a href="http://'. $_SERVER['SERVER_NAME'] . dirname ($_SERVER['SCRIPT_NAME']) . '/' . $basepath .'" id="home">'. $websitetitle .'</a> |
+        <a href="http://'. $_SERVER['SERVER_NAME'] . dirname ($_SERVER['SCRIPT_NAME']) . '/' . $basepath .'" id="home" title="'. $websitetitle .'"><img src="'. $basepath .'img/icon.png" /></a>
         <a href="http://'. $_SERVER['SERVER_NAME'] . dirname ($_SERVER['SCRIPT_NAME']) . '/' . $basepath .'admin/">Admin</a> |
         <a href="http://'. $_SERVER['SERVER_NAME'] . dirname ($_SERVER['SCRIPT_NAME']) . '/' . $basepath .'about/">About</a>
       </div>
@@ -70,10 +71,13 @@
     foreach ($requests as $key => $d) {
       $colorclass = '';
 
+      ### TODO: check these:
       if ( mktime()-$requestfresh < strtotime ($d['rdate']) ) # Max 10 minutes old
         $colorclass = 'fresh';
-      else if ( mktime()-$requeststale < strtotime ($d['rdate']) ) # If above 60 minutes old
+      else if ( mktime()-$requeststale > strtotime ($d['rdate']) ) # Max 60 minutes old
         $colorclass = 'stale';
+      else # If above 60 minutes old
+        $colorclass = 'dead';
 
       $battery = 'img/battery86.svg';
       if ($d['charging'])
@@ -100,13 +104,19 @@
 
       print '
         <tr>
-        <td class="'. $colorclass .'">
+        <td>
           <a href="'. $_SERVER['PHP_SELF']. '?rid='.
           $d['rid']. '">'.
           $d['rdate']. '</a>
         </td>
         <td>
-         '. $d['sname'] .'
+          <a href="'.
+          $_SERVER['PHP_SELF'].
+          '?sid='.
+          $d['sid'].
+          '" class="'. $colorclass .'">'.
+          $d['sname'].
+          '</a>
         </td>
         <td class="smaller">
           <img src="'. $battery .'" 
@@ -172,7 +182,7 @@
   map.addLayer(new OpenLayers.Layer.OSM());
   var lat            = '. $php_array[0][0] .';
   var lon            = '. $php_array[0][1] .';
-  var zoom           = 13;
+  var zoom           = 17;
   var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
   var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
   var markers = new OpenLayers.Layer.Markers( "Markers" );
@@ -206,6 +216,7 @@
   function show_leafletjs ($devices, $requests, $rid = 0) {
     # http://leafletjs.com/download.html
 
+    $defaultzoom = 16;
     $requestcoordinates = get_coordinates ($requests);
     ?>
 
@@ -217,12 +228,8 @@
        function onLocationFound(e) {
          var radius = e.accuracy / 2;
          L.marker(e.latlng).addTo(map)
-           .bindPopup("You are within " + radius + " meters from this point").openPopup();
+           .bindPopup("You are within " + radius + " meters from this point");
          L.circle(e.latlng, radius).addTo(map);
-       }
-
-       function onLocationError(e) {
-         /*alert(e.message);*/
        }
 
     <?php
@@ -235,7 +242,8 @@
           $r['type'],
           rdate */
 
-      print "var map = L.map('map').setView([". $requestcoordinates[0][0] .",". $requestcoordinates[0][1] ."], 14);";
+      print "var map = L.map('map').setView([". $requestcoordinates[0][0] .
+        ",". $requestcoordinates[0][1] ."], ". $defaultzoom .");";
     ?>
       L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -277,7 +285,7 @@
     <?php
       # Disable geolocation if looking for a specific request
       if (0 == $rid ) {
-        print 'map.locate({setView: true, maxZoom: 15});';
+        print 'map.locate({setView: false, maxZoom: '. $defaultzoom .'});';
       }
 
     ?>

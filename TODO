@@ -3,6 +3,7 @@
 === Should have ===
 * User authentication for map/list. Assosiate with "secrets" from admin?
 * Get maps over to SSL, to avoid "mixed content" warning when on SSL.
+* Clean basic map view.
 
 === Nice to have ===
 * Whitelist for reporting (based on secret).
@@ -11,6 +12,8 @@
 * Show speed/bearing if in motion.
 * Color (in list?) based on age of request.
 * Make geoloc zooming in map optional.
+* Heatmap for user (shows good parking spots, daily routines, etc)
+* Go back in time and show patterns for users per day?
 
 === 2.0 ===
 * Consider using http://symfony.com/ for further development.

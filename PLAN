@@ -1,0 +1,26 @@
+# Demapnd login
+# Show map with the active users available to your account:
+
+[Main menu]
++------------------------+
+|
+|
+|     *car
+|
+|
+|             *POI
+|
+|         *person
+|
+|
++------------------------+
+
+List of active users with buttons for activities:
+* car    [log] [heat map] [disable]
+* person [log] [heat map] [disable]
+...
+
+# Admin
+
+* [ Log ]
+* [ Users ]

@@ -40,12 +40,12 @@ th {
   /*border-left: 1px solid;*/
 }
 
-#menu {
-  
+#menu {  
 }
 
 #menu img {
   width: 40px;
+  vertical-align: middle;
 }
 
 #home {
@@ -71,4 +71,9 @@ th {
 
 .dead {
   color: light-gray;
+}
+
+td img {
+  width: 40px;
+  vertical-align: middle;
 }

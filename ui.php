@@ -69,6 +69,7 @@
       <table id="requests">';
 
     foreach ($requests as $key => $d) {
+      $icon = 'img/' . $d['type'] . '.svg';
       $colorclass = '';
 
       ### TODO: check these:
@@ -114,14 +115,15 @@
           $_SERVER['PHP_SELF'].
           '?sid='.
           $d['sid'].
-          '" class="'. $colorclass .'">'.
+          '" class="'. $colorclass .'">
+          <img src="'. $icon .'" />'.
           $d['sname'].
           '</a>
         </td>
         <td class="smaller">
           <img src="'. $battery .'" 
             title="'. $d["battery"] .', charging: '. $d["charging"].'"
-            width="20px"/>
+          />
         </td>
         <td class="smaller">
           Provider: '. $d['provider'] .'

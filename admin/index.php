@@ -8,6 +8,7 @@
   show_header ('../');
   show_menu ('../');
 
+  #Authentication:
   if ( !isset($_SESSION['admin']) ) {
     if ( !isset($_POST['pwd']) ) {
       include ('login.php');

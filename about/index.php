@@ -19,6 +19,10 @@
   Download <a href="../BigBrotherGPS.apk">Android client</a> directly.
 </p>
 
+<div>Icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.co
+m" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" ti
+tle="Creative Commons BY 3.0">CC BY 3.0</a></div>
+
 <?php
 
   include ('../html_footer.html');

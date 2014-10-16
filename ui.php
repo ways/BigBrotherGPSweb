@@ -75,6 +75,29 @@
       else if ( mktime()-$requeststale < strtotime ($d['rdate']) ) # If above 60 minutes old
         $colorclass = 'stale';
 
+      $battery = 'img/battery86.svg';
+      if ($d['charging'])
+        $battery = 'img/battery79.svg';
+      else if (100/5*4 < intval ($d['battery']))
+        $battery = 'img/battery84.svg'; #####
+      else if (100/5*3 < intval ($d['battery']))
+        $battery = 'img/battery82.svg'; ####
+      else if (100/5*2 < intval ($d['battery']))
+        $battery = 'img/battery80.svg'; ###
+      else if (100/5 < intval ($d['battery']))
+        $battery = 'img/battery83.svg'; ##
+      else if (5 < intval ($d['battery']))
+        $battery = 'img/battery81.svg'; #
+      else
+        $battery = 'img/battery86.svg'; 
+
+      $speed = '';
+      if (0 < intval ($d['speed'])) {
+        $speed = 'Speed: '. $d['speed']. ' m/s';
+        if (0 <= intval ($d['bearing']))
+          $speed .= ', bearing '. $d['bearing'] .'&deg';
+      }
+
       print '
         <tr>
         <td class="'. $colorclass .'">
@@ -85,20 +108,16 @@
         <td>
          '. $d['sname'] .'
         </td>
-        <td>
-          Batt: '. $d['battery'] .'
+        <td class="smaller">
+          <img src="'. $battery .'" 
+            title="'. $d["battery"] .', charging: '. $d["charging"].'"
+            width="20px"/>
         </td>
-        <td>
-          Charging: '. $d['charging'] .'
-        </td>
-        <td>
+        <td class="smaller">
           Provider: '. $d['provider'] .'
         </td>
-        <td>
-          Bearing: '. $d['bearing'] .' &deg;
-        </td>
-        <td>
-          Speed: '. $d['speed']. ' m/s
+        <td class="smaller">
+          '. $speed .'
         </td>
         </tr>';
     }

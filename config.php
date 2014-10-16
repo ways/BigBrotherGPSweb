@@ -7,7 +7,7 @@
   $password = 'bigbrother';
 
   # looks
-  $websitetitle     = 'Telescreen';
+  $websitetitle     = 'Minitrue';
   $requestfresh     = 600;
   $requeststale     = 60*60;
 

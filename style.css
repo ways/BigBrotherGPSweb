@@ -28,8 +28,8 @@ a:active {
 }
 
 #devicelist {
-  /*border: 1px solid;*/
-  width: 460px;
+  /*border: 1px solid;
+  width: 460px;*/
 }
 
 th {
@@ -37,7 +37,11 @@ th {
 }
 
 #requests {
-  border-left: 1px solid;
+  /*border-left: 1px solid;*/
+}
+
+#menu {
+  
 }
 
 #menu img {
@@ -45,12 +49,16 @@ th {
 }
 
 #home {
-  font-size: 150%;
+
 }
 
 .more {
-  font-size: 150%;
+  font-size: 110%;
   float:right;
+}
+
+.smaller {
+  font-size: 75%;
 }
 
 .fresh {

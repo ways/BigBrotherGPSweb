@@ -1,8 +1,8 @@
 # Demapnd login
 # Show map with the active users available to your account:
 
-[Main menu]
-+------------------------+
+[Home][LocateMe][Admin][About][Jump down]
++---------------------------------------+
 |
 |
 |     *car
@@ -13,7 +13,7 @@
 |         *person
 |
 |
-+------------------------+
++---------------------------------------+
 
 List of active users with buttons for activities:
 * car    [log] [heat map] [disable]

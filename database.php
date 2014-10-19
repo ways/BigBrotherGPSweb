@@ -154,7 +154,7 @@
     return $out;
   }
 
-  function list_latest_requests ($sid = '', $count = 100) {
+  function list_latest_requests ($sid = '', $count = 1000) {
     # List the $count latest requests from one device/secret.
 
     global $mysqli, $verbose;

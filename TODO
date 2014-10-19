@@ -17,7 +17,12 @@
 
 === 2.0 ===
 * Consider using http://symfony.com/ for further development.
-
+* Consider using bootstrap 3 for javascript menus etc.
+* Consider making it more service oriented, with "register new user",
+   assosiating every device with a user, etc.
+* Consider http://projectmaxs.org/ / XMPP for transport. Lots more
+   complex, but supports asking for location, instead of waiting for
+   it.
 
 == Features wanted in the App ==
 

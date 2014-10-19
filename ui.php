@@ -73,9 +73,10 @@
       $colorclass = '';
 
       ### TODO: check these:
-      if ( mktime()-$requestfresh < strtotime ($d['rdate']) ) # Max 10 minutes old
+      $rdate = strtotime ($d['rdate']);
+      if ( mktime()-$requestfresh < $rdate ) # Max 10 minutes old
         $colorclass = 'fresh';
-      else if ( mktime()-$requeststale > strtotime ($d['rdate']) ) # Max 60 minutes old
+      else if ( mktime()-$requeststale > $rdate ) # Max 60 minutes old
         $colorclass = 'stale';
       else # If above 60 minutes old
         $colorclass = 'dead';
@@ -98,17 +99,27 @@
 
       $speed = '';
       if (0 < intval ($d['speed'])) {
-        $speed = 'Speed: '. $d['speed']. ' m/s';
+        $speed = '<img title="Speed: '. $d['speed']. ' m/s" src="img/odometer.svg" />';
         if (0 <= intval ($d['bearing']))
-          $speed .= ', bearing '. $d['bearing'] .'&deg';
+          $speed .= ' '. $d['bearing'] .'&deg';
       }
+
+      $provider = '';
+      if ('gps' == $d['provider'])
+        $provider = '<img title="Provider: ' . $d['provider'] 
+          .'" src="img/receiving1.svg" />';
+      else if ('network' == $d['provider'])
+        $provider = '<img title="Provider: ' . $d['provider'] 
+          .'" src="img/antenna1.svg" />';
+      else
+        $provider = '<small>Provider: '. $d['provider'] .'</small>';
 
       print '
         <tr>
         <td>
           <a href="'. $_SERVER['PHP_SELF']. '?rid='.
           $d['rid']. '">'.
-          $d['rdate']. '</a>
+          date("H:i", $rdate). '</a>
         </td>
         <td>
           <a href="'.
@@ -120,15 +131,15 @@
           $d['sname'].
           '</a>
         </td>
-        <td class="smaller">
+        <td>
           <img src="'. $battery .'" 
             title="'. $d["battery"] .', charging: '. $d["charging"].'"
           />
         </td>
-        <td class="smaller">
-          Provider: '. $d['provider'] .'
+        <td>
+          '. $provider .'
         </td>
-        <td class="smaller">
+        <td>
           '. $speed .'
         </td>
         </tr>';

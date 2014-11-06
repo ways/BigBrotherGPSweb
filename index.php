@@ -68,30 +68,50 @@
 
   # If not a request from app, go on:
 
-  $sid = 0; # Selecting one device
-  if ( isset ($_GET['sid']))
-    $sid = clean_input($_GET['sid']);
-
-  $rid = 0; # Selecting one request
-  if ( isset ($_GET['rid']))
-    $rid = clean_input($_GET['rid']);
-
-  if ($verbose) {
-    print 'Post:<br/>';
-    print_r($_POST);
+  #Authentication:
+  if ( !isset($_SESSION['admin']) ) {
+    if ( !isset($_POST['pwd']) ) {
+      include ('login.php');
+    } else {
+      $user = list_users ('admin');
+      print_r( $user );
+      print_r($_POST);
+      if ( $user['upassword'] == $_POST['pwd'] ) {
+        $_SESSION['admin'] = 'yes';
+        print 'Access granted.';
+      } else {
+        print 'Wrong password!';
+      }
+    }
   }
 
-  show_header ();
-  show_menu ();
+  if ( isset($_SESSION['admin']) ) {
 
-  $requests = list_requests ($sid, $rid);
-  $devices = list_secrets ();
+    $sid = 0; # Selecting one device
+    if ( isset ($_GET['sid']))
+      $sid = clean_input($_GET['sid']);
 
-  show_map ($devices, $requests, $rid);
-  show_requests ($requests);
-  #show_devices ($devices);
+    $rid = 0; # Selecting one request
+    if ( isset ($_GET['rid']))
+      $rid = clean_input($_GET['rid']);
 
-  #show_log ( list_latest_requests() );
+    if ($verbose) {
+      print 'Post:<br/>';
+      print_r($_POST);
+    }
+
+    show_header ();
+    show_menu ();
+
+    $requests = list_requests ($sid, $rid);
+    $devices = list_secrets ();
+
+    show_map ($devices, $requests, $rid);
+    show_requests ($requests);
+    #show_devices ($devices);
+
+    #show_log ( list_latest_requests() );
+  }
 
   include ('html_footer.html');
 ?>

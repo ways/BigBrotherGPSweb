@@ -6,6 +6,8 @@
 # This will look up your aprox location using ipinfo.io and report
 # it to a URL of your choice.
 
+# TODO: use http://www.freedesktop.org/wiki/Software/GeoClue/ instead.
+
 URL="$1"
 verbose=""
 
